@@ -45,7 +45,6 @@ public class euler098 extends Euler {
         
         for (int i = 0; i < words.length - 1; i++) {
             for (int j = i + 1; j < words.length - 1; j++) {
-
                 if (Arrays.equals(words[i].alphabet, words[j].alphabet)) {
                     Word one = words[i],
                             two = words[j];
@@ -59,7 +58,7 @@ public class euler098 extends Euler {
                     
                     for (int k = max, temp = k; k > 0; k--) {
                         HashMap<Character, Integer> map = new HashMap();
-
+                        
                         int l = 0;
                         
                         for (; l < 26; l++){
@@ -95,7 +94,6 @@ public class euler098 extends Euler {
                 }
             }
         }
-        
         
         System.out.println(largest);
     }
