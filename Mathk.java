@@ -75,9 +75,10 @@ public class Mathk {
             for(int n = chopper.nextInt(); n <= max; n = chopper.nextInt())
                 out[n] = true;
         
-        
+            System.out.println("Sieve complete.");
             return out;
         }
+        
         return new boolean[0];
         /*if(chopper.nextInt() >= max){
             out[chopper.nextInt()]
@@ -342,6 +343,15 @@ public class Mathk {
         }
         
         return temp;
+    }
+    public static int asNum(int[] number){
+        int num = 0;
+        
+        for (int i = 0; i < number.length; i++) 
+            num += number[i] * (int) Math.pow(10, number.length-i-1);
+        
+        
+        return num;
     }
     
     public static boolean isSquare(int num){

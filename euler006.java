@@ -15,7 +15,7 @@ public class euler006 extends Euler{
             sumSquare += Math.pow(i, 2);
             squareSum += i;
         }
-        
+           
         squareSum = (int) Math.pow(squareSum, 2);    
         
         System.out.println("Difference: "+(squareSum - sumSquare));
