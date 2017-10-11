@@ -1,20 +1,15 @@
 
-
-
 import java.math.BigInteger;
-
-
-
-
 
 /**
  * @author Kevin
  */
-public class euler020 {
+public class euler020 extends Euler{
     
     private static final int number = 100;
     
     public static void main(String[] args) {
+        Start();
         
         BigInteger product = BigInteger.ONE;
         BigInteger sum = BigInteger.ZERO;

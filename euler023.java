@@ -1,15 +1,15 @@
 
-
-
 import java.util.ArrayList;
 
 /**
  * @author Kevin
  */
-public class euler023 {
+public class euler023 extends Euler{
 
     
     public static void main(String[] args) {
+        Start();
+        
         ArrayList<Integer> abun = new ArrayList<>();
         boolean[] writable = new boolean[28124];
         

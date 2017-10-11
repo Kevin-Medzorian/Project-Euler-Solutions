@@ -1,14 +1,11 @@
 
-
-
-import java.util.Arrays;
-
 /**
  * @author Kevin
  */
-public class euler005 {
+public class euler005 extends Euler{
 
     public static void main(String[] args) {
+        Start();
         
         int answer = 20;
         

@@ -15,7 +15,7 @@ public class euler003 extends Euler{
         
         while(curNum > 0){
             
-            if(600851475143l % curNum == 0 && Mathk.isPrime((int) curNum)){ // % sign gives the whole-number division's remainder
+            if(600851475143l % curNum == 0 && isPrime((int) curNum)){ // % sign gives the whole-number division's remainder
                 break; // 'break' cuts out of loop- completely.
             }
             

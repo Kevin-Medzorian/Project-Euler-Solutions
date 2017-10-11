@@ -1,6 +1,4 @@
 
-
-import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -8,11 +6,13 @@ import java.util.List;
 /**
  * @author Kevin
  */
-public class euler024 {
+public class euler024 extends Euler{
     
     private static List nums = new ArrayList();
     
     public static void main(String[] args) {
+        Start();
+        
         Integer[] numbers = {1, 2, 3, 4, 5 ,6 ,7, 8, 9};
 
         Collections.addAll(nums, numbers);

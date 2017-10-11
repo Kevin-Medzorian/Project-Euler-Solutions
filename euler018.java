@@ -4,7 +4,7 @@
 /**
  * @author Kevin
  */
-public class euler018 {
+public class euler018 extends Euler{
 
     private static final String triangle = "75\n"
             + "95 64\n"
@@ -23,6 +23,8 @@ public class euler018 {
             + "04 62 98 27 23 09 70 98 73 93 38 53 60 04 23";
 
     public static void main(String[] args) {
+        Start();
+        
         String[] line = triangle.split("\n");
 
         String[][] grid = new String[line.length][0];
