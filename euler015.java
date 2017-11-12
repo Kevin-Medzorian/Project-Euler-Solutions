@@ -1,4 +1,7 @@
 
+import java.math.BigInteger;
+
+
 
 /**
  * @author Kevin
@@ -9,6 +12,24 @@ public class euler015 extends Euler{
     
     public static void main(String[] args) {
         Start();
+        
+        
+        
+        
+        
+        
+        BigInteger n = new BigInteger(""+DIM[0]).add(new BigInteger(""+DIM[1]));
+        
+        BigInteger k = new BigInteger(""+DIM[0]);
+        
+        BigInteger answer = F(n.toString());
+        
+        BigInteger divisor = F(k.toString()).multiply(F(n.subtract(k).toString()));
+ 
+        System.out.println(answer.divide(divisor));
+        
+        
+        
         
         long[][] grid = new long[DIM[1]][DIM[0]];
        

@@ -230,7 +230,15 @@ public class Mathk {
 
         return product;
     }
+    public static BigInteger F(BigInteger i) {
+        BigInteger product = i;
 
+        for (BigInteger index = BigInteger.ONE; index.compareTo(i) < 0; index.add(BigInteger.ONE)) {
+            product = product.multiply(index);
+        }
+
+        return product;
+    }
     public static int F(int i) {
         int product = 1;
         for (int j = 2; j <= i; j++) {
