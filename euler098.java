@@ -24,21 +24,20 @@ public class euler098 extends Euler {
 
     public static void main(String[] args) throws Exception {
         Start();
+        
         System.out.println("Takes about 3m to compute...");
         
         String[] data = new Scanner(new File("src/euler098.dat")).next().replaceAll("\"", "").split(",");
         Word[] words = new Word[data.length];
 
-        int largest = 0;
+        int largest = -1;
 
         for (int i = 0; i < data.length; i++) {
             Word word = new Word(data[i]);
 
-            for (int j = 0; j < word.name.length(); j++) {
-                if (ABC.contains("" + data[i].charAt(j))) {
+            for (int j = 0; j < word.name.length(); j++) 
+                if (ABC.contains("" + data[i].charAt(j))) 
                     word.alphabet[ABC.indexOf(data[i].charAt(j))]++;
-                }
-            }
 
             words[i] = word;
         }
@@ -54,47 +53,43 @@ public class euler098 extends Euler {
                         if (one.alphabet[k] > 0) 
                             uNums++;
                     
-                    int max = (int) Math.pow(10, uNums) - 1;
+                    int min = (int) Math.pow(10, uNums - 1),
+                            max = min * 10 - 1;
                     
-                    for (int k = max, temp = k; k > 0; k--) {
+                    for (int k = max; k > min; k--) {
                         HashMap<Character, Integer> map = new HashMap();
                         
                         int l = 0;
                         
-                        for (; l < 26; l++){
+                        for (int temp = k; l < 26; l++){
                             if (one.alphabet[l] > 0){
-                                if(map.containsValue(temp % 10)){
+                                if(map.containsValue(temp % 10))
                                     break;
-                                }else{
-                                    map.put(ABC.charAt(l), temp % 10);
-                                    temp /= 10;
-                                }
+                                
+                                map.put(ABC.charAt(l), temp % 10);
+                                temp /= 10;
                             }
                         }
-                        
-                        if(l == 26 && map.get(one.name.charAt(0)) != 0 && map.get(two.name.charAt(0)) != 0){
+
+                        if(l > 25 && map.get(one.name.charAt(0)) * map.get(two.name.charAt(0)) > 0){
                             int n1, n2 = n1 = 0;
 
                             for (int m = 0; m < one.name.length(); m++) {
-                                int power = (int) Math.pow(10, one.name.length() - m - 1) ;
+                                int power = (int) Math.pow(10, one.name.length() - m - 1);
 
                                 n1 += map.get(one.name.charAt(m)) * power;
                                 n2 += map.get(two.name.charAt(m)) * power;
                             }
 
-                            if (isSquare(n1) && isSquare(n2)) {                       
-                                if (n1 > largest) 
-                                    largest = n1;
-
-                                if (n2 > largest) 
-                                    largest = n2;
-                            }
+                            if (isSquare(n1) && isSquare(n2))                     
+                                largest = Math.max(largest, Math.max(n1, n2));
+                            
                         }
                     }
                 }
             }
         }
         
-        System.out.println(largest);
+        System.out.println("Answer: " + largest);
     }
 }
