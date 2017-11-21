@@ -398,4 +398,13 @@ public class Mathk {
 
         return -1;
     }
+    
+    public static int[] FillArray(int[] arr, int[] vals){
+        
+        for (int i = 0; i < vals.length; i++) {
+            arr[i] = vals[i];
+        }
+        
+        return arr;
+    }
 }
