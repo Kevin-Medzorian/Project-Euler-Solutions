@@ -1,8 +1,6 @@
 
 import java.math.BigInteger;
 
-
-
 /**
  * @author Kevin
  */
@@ -13,10 +11,8 @@ public class euler015 extends Euler{
     public static void main(String[] args) {
         Start();
         
-        
-        
-        
-        
+        // Use Binomial Coefficient identity of (r+c  c)
+        //      n!/k!(n-k)!
         
         BigInteger n = new BigInteger(""+DIM[0]).add(new BigInteger(""+DIM[1]));
         
@@ -28,9 +24,9 @@ public class euler015 extends Euler{
  
         System.out.println(answer.divide(divisor));
         
+        //Less eloquent method:
         
-        
-        
+        /*
         long[][] grid = new long[DIM[1]][DIM[0]];
        
         for(int i = 0; i < DIM[0]; i++){
@@ -47,6 +43,8 @@ public class euler015 extends Euler{
         }
          
         System.out.println(grid[DIM[1]-1][DIM[0]-1]);
+
+        */
     }
 
 }
