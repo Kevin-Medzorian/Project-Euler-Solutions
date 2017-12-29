@@ -6,7 +6,7 @@ public class euler072 extends Euler {
     public static void main(String[] args) throws Exception {
         Start();
 
-        final int LIMIT = 1_000_000;
+        final int LIMIT = 8;
         
         int amount = 0;
         HashSet<Double> fracs = new HashSet();

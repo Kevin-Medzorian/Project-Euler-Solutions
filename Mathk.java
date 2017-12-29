@@ -15,95 +15,138 @@ import java.util.Set;
  * @author Kevin
  */
 public class Mathk {
-    public static boolean setContains(Set<int[]> arr, int[] compare){
+
+    static class Fraction {
+
+        BigInteger num;
+        BigInteger den = BigInteger.ONE;
+
+        public static final Fraction ONE() {
+            return new Fraction(BigInteger.ONE, BigInteger.ONE);
+        }
+
+        public Fraction(BigInteger n, BigInteger d) {
+            num = n;
+            den = d;
+        }
+
+        public Fraction(BigInteger n) {
+            num = n;
+        }
+
+        public Fraction divide(Fraction other) {
+            return new Fraction(num.multiply(other.den), den.multiply(other.num));
+        }
+
+        public Fraction multiply(Fraction other) {
+            return new Fraction(num.multiply(other.num), den.multiply(other.den));
+        }
+
+        public Fraction add(Fraction other) {
+            BigInteger comm = den.multiply(other.den);
+            BigInteger newNum = other.den.multiply(num).add(den.multiply(other.num));
+
+            BigInteger gcd = gcd(comm, newNum);
+
+            comm = comm.divide(gcd);
+            newNum = newNum.divide(gcd);
+
+            return new Fraction(newNum, comm);
+        }
+
+        public Fraction subtract(Fraction other) {
+            BigInteger comm = den.multiply(other.den);
+            BigInteger newNum = other.den.multiply(num).subtract(den.multiply(other.num));
+
+            BigInteger gcd = gcd(comm, newNum);
+
+            comm = comm.divide(gcd);
+            newNum = newNum.divide(gcd);
+
+            return new Fraction(newNum, comm);
+        }
+
+        public String toString() {
+            return num + "/" + den;
+        }
+    }
+
+    public static boolean setContains(Set<int[]> arr, int[] compare) {
         return arr.stream().anyMatch((i) -> (Arrays.equals(i, compare)));
     }
-    public static Integer[] GetPrimes(int max) throws Exception{
+
+    public static Integer[] GetPrimes(int max) throws Exception {
         Scanner chopper;
-        
-        try{
-            chopper = new Scanner(new File("src/primes.dat"));
-        }catch(FileNotFoundException e){
+
+        if (!new File("src/primes.dat").exists()) {
             WritePrimes(max);
         }
-        
+
         chopper = new Scanner(new File("src/primes.dat"));
-        
+
         int length = chopper.nextInt();
-        
-        if(length < max)
+
+        if (length < max) {
             WritePrimes(max);
-        
+        }
+
         ArrayList<Integer> primes = new ArrayList();
-        
+
         primes.add(chopper.nextInt());
-        
-        for(int i = 0; primes.get(i) < max && chopper.hasNextInt(); i ++){
+
+        for (int i = 0; primes.get(i) < max && chopper.hasNextInt(); i++) {
             primes.add(chopper.nextInt());
         }
-        
-        
-        return primes.toArray(new Integer[primes.size()]);  
+
+        return primes.toArray(new Integer[primes.size()]);
     }
-    public static void WritePrimes(int max) throws Exception{
+
+    public static void WritePrimes(int max) throws Exception {
         String primes = "2 ";
-        
+
         int amount = 1;
-        
-        for (int i = 3; i < max; i+=2){
-            if(isPrime(i)){
+
+        for (int i = 3; i < max; i += 2) {
+            if (isPrime(i)) {
                 primes += (i + " ");
                 amount++;
             }
         }
-        
+
         primes = max + " " + primes;
-        
-        
+
         Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("src/primes.dat"), "utf-8"));
         writer.write(primes);
         writer.close();
     }
-    
-    
-    public static boolean[] sieve(int max) throws Exception{
+
+    public static boolean[] sieve(int max) throws Exception {
+        long time = System.currentTimeMillis();
+
         Scanner chopper = new Scanner(new File("src/primes.dat"));
+
         boolean[] out = new boolean[max];
-        
-        if(max <= chopper.nextInt()){
-            
-            for(int n = chopper.nextInt(); n <= max; n = chopper.nextInt())
+
+        if (max <= chopper.nextInt()) {
+            for (int n = chopper.nextInt(); n <= max; n = chopper.nextInt()) {
                 out[n] = true;
-        
-            System.out.println("Sieve complete.");
+            }
+
+            System.out.println("Sieve complete. [" + (System.currentTimeMillis() - time) + " ms]");
             return out;
         }
-        
-        return new boolean[0];
-        /*if(chopper.nextInt() >= max){
-            out[chopper.nextInt()]
-            
 
-//String[] data = chopper.nextLine().trim().split(" ");
-            
-            
-            for(int i = 0; Integer.parseInt(data[i]) <= max; i++){
-                out[Integer.parseInt(data[i])] = true;
-            }
-            */
-        //    return out;
-        //}
-        
-        //return new boolean[0];
+        System.out.println("Sieve error: Array size it too large for the primes data file.");
+        return null;
     }
 
     public static void calculate(int max) throws Exception {
-        String primes = max +"\n";
+        String primes = max + "\n";
 
-        for (int i = 1; i < max; i++) 
-            primes += (isPrime(i) ? 1 : 0) +" ";
+        for (int i = 1; i < max; i++) {
+            primes += (isPrime(i) ? 1 : 0) + " ";
+        }
 
-        
         Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("src/primes.dat"), "utf-8"));
         writer.write(primes);
         writer.close();
@@ -230,6 +273,7 @@ public class Mathk {
 
         return product;
     }
+
     public static BigInteger F(BigInteger i) {
         BigInteger product = i;
 
@@ -239,6 +283,7 @@ public class Mathk {
 
         return product;
     }
+
     public static int F(int i) {
         int product = 1;
         for (int j = 2; j <= i; j++) {
@@ -332,11 +377,12 @@ public class Mathk {
 
         return -1;
     }
+
     public static int[] toArray(int number) {
         int i = 0;
         int length = (int) Math.log10(number);
         int divisor = (int) Math.pow(10, length);
-        
+
         int[] temp = new int[length + 1];
 
         while (number != 0) {
@@ -349,46 +395,52 @@ public class Mathk {
                 divisor = divisor / 10;
             }
         }
-        
+
         return temp;
     }
-    public static int asNum(int[] number){
+
+    public static int asNum(int[] number) {
         int num = 0;
-        
-        for (int i = 0; i < number.length; i++) 
-            num += number[i] * (int) Math.pow(10, number.length-i-1);
-        
-        
+
+        for (int i = 0; i < number.length; i++) {
+            num += number[i] * (int) Math.pow(10, number.length - i - 1);
+        }
+
         return num;
     }
-    
-    public static boolean isSquare(int num){
-        return Math.sqrt(num) % 1 == 0;  
+
+    public static boolean isSquare(int num) {
+        return Math.sqrt(num) % 1 == 0;
     }
-    
-    public static boolean hasDistinctDigits(int num){
+
+    public static boolean hasDistinctDigits(int num) {
         int numM = 0,
                 numD = (int) Math.log10(num) + 1;
-        
+
         for (int i = 0; i < numD; i++) {
-            int curD = (int)(num / Math.pow(10, i)) % 10,
-                    dM = (int)Math.pow(2, curD);
-            
-            if((numM & dM) > 0)
+            int curD = (int) (num / Math.pow(10, i)) % 10,
+                    dM = (int) Math.pow(2, curD);
+
+            if ((numM & dM) > 0) {
                 return false;
-            
+            }
+
             numM = numM | curD;
         }
-        
+
         return true;
     }
-    public static boolean Exists(int[] arr, int item){
-        for (int i : arr) 
-            if(i == item)
+
+    public static boolean Exists(int[] arr, int item) {
+        for (int i : arr) {
+            if (i == item) {
                 return true;
-        
+            }
+        }
+
         return false;
     }
+
     public static int ArrayIndexOf(int[] arr, int item, int constraint) {
         for (int i = 0; i < constraint; i++) {
             if (arr[i] == item) {
@@ -398,13 +450,39 @@ public class Mathk {
 
         return -1;
     }
-    
-    public static int[] FillArray(int[] arr, int[] vals){
-        
+
+    public static int[] FillArray(int[] arr, int[] vals) {
+
         for (int i = 0; i < vals.length; i++) {
             arr[i] = vals[i];
         }
-        
+
         return arr;
+    }
+
+    public static String asFrac(float x) {
+
+        if (x < 0) {
+            return "-" + asFrac(-x);
+        }
+
+        float tolerance = 1.0E-6f,
+                h1 = 1,
+                h2 = 0,
+                k1 = 0,
+                k2 = 1,
+                b = x;
+        do {
+            float a = (float) Math.floor(b);
+            float aux = h1;
+            h1 = a * h1 + h2;
+            h2 = aux;
+            aux = k1;
+            k1 = a * k1 + k2;
+            k2 = aux;
+            b = 1 / (b - a);
+        } while (Math.abs(x - h1 / k1) > x * tolerance);
+
+        return h1 + "/" + k1;
     }
 }
