@@ -16,61 +16,6 @@ import java.util.Set;
  */
 public class Mathk {
 
-    static class Fraction {
-
-        BigInteger num;
-        BigInteger den = BigInteger.ONE;
-
-        public static final Fraction ONE() {
-            return new Fraction(BigInteger.ONE, BigInteger.ONE);
-        }
-
-        public Fraction(BigInteger n, BigInteger d) {
-            num = n;
-            den = d;
-        }
-
-        public Fraction(BigInteger n) {
-            num = n;
-        }
-
-        public Fraction divide(Fraction other) {
-            return new Fraction(num.multiply(other.den), den.multiply(other.num));
-        }
-
-        public Fraction multiply(Fraction other) {
-            return new Fraction(num.multiply(other.num), den.multiply(other.den));
-        }
-
-        public Fraction add(Fraction other) {
-            BigInteger comm = den.multiply(other.den);
-            BigInteger newNum = other.den.multiply(num).add(den.multiply(other.num));
-
-            BigInteger gcd = gcd(comm, newNum);
-
-            comm = comm.divide(gcd);
-            newNum = newNum.divide(gcd);
-
-            return new Fraction(newNum, comm);
-        }
-
-        public Fraction subtract(Fraction other) {
-            BigInteger comm = den.multiply(other.den);
-            BigInteger newNum = other.den.multiply(num).subtract(den.multiply(other.num));
-
-            BigInteger gcd = gcd(comm, newNum);
-
-            comm = comm.divide(gcd);
-            newNum = newNum.divide(gcd);
-
-            return new Fraction(newNum, comm);
-        }
-
-        public String toString() {
-            return num + "/" + den;
-        }
-    }
-
     public static boolean setContains(Set<int[]> arr, int[] compare) {
         return arr.stream().anyMatch((i) -> (Arrays.equals(i, compare)));
     }
@@ -485,4 +430,62 @@ public class Mathk {
 
         return h1 + "/" + k1;
     }
+    
+    
+    
+    static class Fraction {
+
+        BigInteger num,
+                den = BigInteger.ONE;
+        
+        static final Fraction ONE = new Fraction(BigInteger.ONE, BigInteger.ONE),
+                ZERO = new Fraction(BigInteger.ZERO, BigInteger.ONE),
+                       TEN = new Fraction(BigInteger.TEN, BigInteger.ONE); 
+
+        public Fraction(BigInteger n, BigInteger d) {
+            num = n;
+            den = d;
+        }
+
+        public Fraction(BigInteger n) {
+            num = n;
+        }
+
+        public Fraction divide(Fraction other) {
+            return new Fraction(num.multiply(other.den), den.multiply(other.num));
+        }
+
+        public Fraction multiply(Fraction other) {
+            return new Fraction(num.multiply(other.num), den.multiply(other.den));
+        }
+
+        public Fraction add(Fraction other) {
+            BigInteger comm = den.multiply(other.den);
+            BigInteger newNum = other.den.multiply(num).add(den.multiply(other.num));
+
+            BigInteger gcd = gcd(comm, newNum);
+
+            comm = comm.divide(gcd);
+            newNum = newNum.divide(gcd);
+
+            return new Fraction(newNum, comm);
+        }
+
+        public Fraction subtract(Fraction other) {
+            BigInteger comm = den.multiply(other.den);
+            BigInteger newNum = other.den.multiply(num).subtract(den.multiply(other.num));
+
+            BigInteger gcd = gcd(comm, newNum);
+
+            comm = comm.divide(gcd);
+            newNum = newNum.divide(gcd);
+
+            return new Fraction(newNum, comm);
+        }
+        @Override
+        public String toString() {
+            return num + "/" + den;
+        }
+    }
+
 }
