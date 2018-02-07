@@ -21,5 +21,5 @@ public class euler097 extends Euler{
         
         System.out.println(ans);
         
-        }
+    }
 }

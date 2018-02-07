@@ -1,7 +1,6 @@
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
@@ -60,9 +59,9 @@ public class Mathk {
 
         primes = max + " " + primes;
 
-        Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("src/primes.dat"), "utf-8"));
-        writer.write(primes);
-        writer.close();
+        try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("src/primes.dat"), "utf-8"))) {
+            writer.write(primes);
+        }
     }
 
     public static boolean[] sieve(int max) throws Exception {
@@ -92,9 +91,9 @@ public class Mathk {
             primes += (isPrime(i) ? 1 : 0) + " ";
         }
 
-        Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("src/primes.dat"), "utf-8"));
-        writer.write(primes);
-        writer.close();
+        try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("src/primes.dat"), "utf-8"))) {
+            writer.write(primes);
+        }
     }
 
     public static boolean isPrime(int n) {
@@ -165,13 +164,7 @@ public class Mathk {
     }
 
     public static boolean Exists(ArrayList<int[]> list, int[] arr) {
-        for (int[] i : list) {
-            if (Arrays.equals(i, arr)) {
-                return true;
-            }
-        }
-
-        return false;
+        return list.stream().anyMatch((i) -> (Arrays.equals(i, arr)));
     }
 
     public static int StringLines(String s) {
@@ -397,11 +390,7 @@ public class Mathk {
     }
 
     public static int[] FillArray(int[] arr, int[] vals) {
-
-        for (int i = 0; i < vals.length; i++) {
-            arr[i] = vals[i];
-        }
-
+        System.arraycopy(vals, 0, arr, 0, vals.length);
         return arr;
     }
 
@@ -436,7 +425,7 @@ public class Mathk {
     static class Fraction {
 
         BigInteger num,
-                den = BigInteger.ONE;
+                 den = BigInteger.ONE;
         
         static final Fraction ONE = new Fraction(BigInteger.ONE, BigInteger.ONE),
                 ZERO = new Fraction(BigInteger.ZERO, BigInteger.ONE),
@@ -482,6 +471,7 @@ public class Mathk {
 
             return new Fraction(newNum, comm);
         }
+        
         @Override
         public String toString() {
             return num + "/" + den;

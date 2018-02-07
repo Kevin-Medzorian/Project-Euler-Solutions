@@ -10,7 +10,7 @@ public class euler099 extends Euler {
     public static void main(String[] args) throws Exception {
         Start();
         
-        Scanner scan = new Scanner(new File("src/data_99.dat"));
+        Scanner scan = new Scanner(new File("src/euler099.dat"));
         Double greatest = 0.0;
         int index = -1;
              
